@@ -55,34 +55,79 @@ Compare the original, opened, and closed images.
 
 ## Program
 
+```
+# Image Opening and Closing using OpenCV
+
+# Step 1: Import Required Libraries
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 2: Create an Input Image
+img = np.zeros((400, 600), dtype=np.uint8)
+
+cv2.rectangle(img, (100, 100), (300, 300), 255, -1)
+cv2.circle(img, (450, 200), 80, 255, -1)
+
+# Add small noise
+img[50, 50] = 255
+img[350, 500] = 255
+img[80, 400] = 255
+
+# Step 3: Display Original Image
+plt.figure(figsize=(6, 4))
+plt.imshow(img, cmap='gray')
+plt.title('Original Image')
+plt.axis('off')
+plt.show()
+
+# Step 4: Create Structuring Element (Kernel)
+kernel = np.ones((5, 5), np.uint8)
+
+# Step 5: Opening Operation (Erosion + Dilation)
+opening = cv2.morphologyEx(img, cv2.MORPH_OPEN, kernel)
+
+plt.figure(figsize=(6, 4))
+plt.imshow(opening, cmap='gray')
+plt.title('Opening Operation')
+plt.axis('off')
+plt.show()
+
+# Step 6: Closing Operation (Dilation + Erosion)
+closing = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+
+plt.figure(figsize=(6, 4))
+plt.imshow(closing, cmap='gray')
+plt.title('Closing Operation')
+plt.axis('off')
+plt.show()
+
+# Step 7: Compare All Three Images
+images = [img, opening, closing]
+titles = ['Original Image', 'Opening', 'Closing']
+
+plt.figure(figsize=(15, 5))
+
+for i in range(3):
+    plt.subplot(1, 3, i + 1)
+    plt.imshow(images[i], cmap='gray')
+    plt.title(titles[i])
+    plt.axis('off')
+
+plt.tight_layout()
+plt.show()
+```
+
 ## Developed By
 
-**Name:** ____________________________
+**Name:** Santhosh K
 
-**Register No:** ______________________
+**Register No:** 212225040379
 
 ## Output
 
-### Original Image
+<img width="1489" height="362" alt="image" src="https://github.com/user-attachments/assets/dfa2efff-0aff-4f28-ae84-bed6c9dafcf9" />
 
-- The input image is displayed.
-- The image serves as the source for morphological processing.
-
-### Opening Operation
-
-- Original image is displayed.
-- Opened image is displayed.
-- Small foreground noise is removed.
-- Thin protrusions and isolated pixels are eliminated.
-- Object boundaries become smoother.
-
-### Closing Operation
-
-- Original image is displayed.
-- Closed image is displayed.
-- Small holes and gaps inside objects are filled.
-- Broken regions are connected.
-- Object boundaries become more continuous.
 
 ## Applications
 
